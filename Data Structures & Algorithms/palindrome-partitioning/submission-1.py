@@ -1,0 +1,22 @@
+from typing import List
+
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        res = []
+        path = []
+
+        def backtrack(start):
+            if start == len(s):
+                res.append(path.copy())
+                return
+
+            for end in range(start + 1, len(s) + 1):
+                substring = s[start:end]
+
+                if substring == substring[::-1]:
+                    path.append(substring)
+                    backtrack(end)
+                    path.pop()
+
+        backtrack(0)
+        return res
